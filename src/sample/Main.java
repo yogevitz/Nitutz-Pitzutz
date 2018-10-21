@@ -50,6 +50,9 @@ public class Main extends Application {
                 + "	Email varchar(255) NOT NULL\n"
                 //  + "	Picture BLOB NOT NULL,\n"
                 + ");" ;
+        //Yogev
+        //Gal
+        //Liron
 
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
