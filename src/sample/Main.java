@@ -1,5 +1,6 @@
 package sample;
 
+import Model.MainModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -65,9 +66,6 @@ public class Main extends Application {
     }
 
 
-
-
-
     /**
      * Connect to the test.db database
      *
@@ -117,10 +115,12 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         //launch(args);
-        createNewDatabase("Vacation4U.db");
-        createNewTable();
+        //createNewDatabase("Vacation4U.db");
+       // createNewTable();
 
         // insert three new rows
-        insert("kjjjbh", "agj","bgfj", "cjgf", "dgfj","egfj", "galvaitzman@gmail.com");
+        MainModel m = new MainModel();
+      //  m.createUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "galvaitzman@gmail.com");
+        m.updateUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "gonilevinhaihhhmi@gmail.com");
     }
 }
