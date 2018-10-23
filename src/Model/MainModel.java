@@ -1,27 +1,29 @@
 package Model;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainModel {
     Map<String, String> users_passwords_Dic = new HashMap<String, String>();
     Map<String, User> users_Dic = new HashMap<String, User>();
-    public void createUser(String user_name, String password, String birth_day, String first_name, String last_name, String city, String email)
+    public boolean createUser(String user_name, String password, String birth_day, String first_name, String last_name, String city, String email)
     {
-        if(users_passwords_Dic.containsKey(user_name))
+        if(searchUser(user_name).isEmpty())
         {
-            // return to vontroler an error please enter new user name
+            insertUserToDB(user_name,password,birth_day,first_name,last_name,city,email);
+            return true;
         }
 
         else
         {
-            users_passwords_Dic.put(user_name,password);
-            insertUserToDB(user_name,password,birth_day,first_name,last_name,city,email);
-            users_Dic.put(user_name,new User(user_name,password,birth_day,first_name,last_name,city,email));
+            //telling the controller that the user is already exist
+            return false;
+            //users_passwords_Dic.put(user_name,password);
+            //users_Dic.put(user_name,new User(user_name,password,birth_day,first_name,last_name,city,email));
         }
     }
     private Connection connect() {
@@ -63,16 +65,18 @@ public class MainModel {
         }
     }
 
+    /*
     public List<String> searchUser (String user_name){
         if (!users_passwords_Dic.containsKey(user_name)){
             return null;
         }
+        System.out.println("yes");
         return users_Dic.get(user_name).listOfUserDetails();
     }
+    */
 
-    public void updateUser(String user_name, String password, String birth_day, String first_name, String last_name, String city, String email) {
-        String sql = "UPDATE Users SET User_name = ? , "
-                                    + "Password = ? ,"
+    public boolean updateUser(String user_name,String password, String birth_day, String first_name, String last_name, String city, String email) {
+        String sql = "UPDATE Users SET Password = ? , "
                                     + "Birth_day = ? ,"
                                     + "First_name = ? ,"
                                     + "Last_name = ? ,"
@@ -84,19 +88,65 @@ public class MainModel {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, user_name);
-            pstmt.setString(2, password);
-            pstmt.setString(3, birth_day);
-            pstmt.setString(4, first_name);
-            pstmt.setString(5, last_name);
-            pstmt.setString(6, city);
-            pstmt.setString(7, email);
-            pstmt.setString(8, user_name);
+            pstmt.setString(1, password);
+            pstmt.setString(2, birth_day);
+            pstmt.setString(3, first_name);
+            pstmt.setString(4, last_name);
+            pstmt.setString(5, city);
+            pstmt.setString(6, email);
+            pstmt.setString(7, user_name);
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void delete(String user_name) {
+        String sql = "DELETE FROM Users WHERE User_name = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, user_name);
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+
+            // maybe to remove all the details in other tables like flights , vacations and hotels
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<String> searchUser(String user_name){
+
+        String sql = "SELECT * from Users where User_name = ?";
+        List<String> userDetails = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement statement = conn.prepareStatement(sql)){
+             statement.setString(1, user_name);
+             ResultSet rs = statement.executeQuery();
+             ResultSetMetaData rsmd = rs.getMetaData();
+             int colCount = rsmd.getColumnCount();
+             while (rs.next())
+             {
+                for (int col=1; col <= colCount; col++)
+                {
+                    Object value = rs.getObject(col);
+                    if (value != null)
+                    {
+                        userDetails.add(value.toString());
+                    }
+                }
+             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return userDetails;
     }
 
 

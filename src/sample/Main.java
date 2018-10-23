@@ -121,6 +121,7 @@ public class Main extends Application {
         // insert three new rows
         MainModel m = new MainModel();
       //  m.createUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "galvaitzman@gmail.com");
-        m.updateUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "gonilevinhaihhhmi@gmail.com");
+        //m.updateUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "gonilevinhaihhhmi@gmail.com");
+       m.searchUser("goni");
     }
 }
