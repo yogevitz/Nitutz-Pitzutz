@@ -65,7 +65,7 @@ public class MainModel {
         }
     }
 
-    /*
+
     public List<String> searchUser (String user_name){
         if (!users_passwords_Dic.containsKey(user_name)){
             return null;
@@ -73,7 +73,7 @@ public class MainModel {
         System.out.println("yes");
         return users_Dic.get(user_name).listOfUserDetails();
     }
-    */
+
 
     public boolean updateUser(String user_name,String password, String birth_day, String first_name, String last_name, String city, String email) {
         String sql = "UPDATE Users SET Password = ? , "
@@ -97,9 +97,11 @@ public class MainModel {
             pstmt.setString(7, user_name);
             // update
             pstmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public void delete(String user_name) {
@@ -122,8 +124,7 @@ public class MainModel {
         }
     }
 
-    public List<String> searchUser(String user_name){
-
+    public List<String> searchUserByUserName(String user_name){
         String sql = "SELECT * from Users where User_name = ?";
         List<String> userDetails = new ArrayList<String>();
         try (Connection conn = this.connect();
@@ -149,5 +150,10 @@ public class MainModel {
         return userDetails;
     }
 
-
+    public boolean validateUserNameAndPassword(String userName, String password){
+        List<String> searchResult = searchUserByUserName(userName);
+        if (searchResult.isEmpty() || !password.equals(searchResult.get(1)))
+            return false;
+        return true;
+    }
 }
