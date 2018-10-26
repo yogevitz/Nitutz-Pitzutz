@@ -12,7 +12,7 @@ public class MainModel {
     Map<String, User> users_Dic = new HashMap<String, User>();
     public boolean createUser(String user_name, String password, String birth_day, String first_name, String last_name, String city, String email)
     {
-        if(searchUser(user_name).isEmpty())
+        if(searchUserByUserName(user_name).isEmpty())
         {
             insertUserToDB(user_name,password,birth_day,first_name,last_name,city,email);
             return true;
@@ -68,7 +68,8 @@ public class MainModel {
 
     public List<String> searchUser (String user_name){
         if (!users_passwords_Dic.containsKey(user_name)){
-            return null;
+            return new ArrayList<String>() {
+            };
         }
         System.out.println("yes");
         return users_Dic.get(user_name).listOfUserDetails();

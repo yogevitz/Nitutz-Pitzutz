@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.regex.Pattern;
 
 public class MainView {
     private MainController mc = new MainController();
-
 
     @FXML
     public javafx.scene.control.Button loginButton;
@@ -42,6 +42,7 @@ public class MainView {
 
     public void signUp() {
         try {
+
             Stage primaryStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("SignUpView.fxml"));
@@ -73,7 +74,22 @@ public class MainView {
         l.setVisible(false);
     }
 
+    public static boolean isValidEmail(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+
     public void filledSignUp() {
+
+
         clearErrorLable(errorusernameLable);
         clearErrorLable(errorpasswordLable);
         clearErrorLable(errorfirstnameLable);
@@ -87,18 +103,41 @@ public class MainView {
         missMandatoryField(errorlastnameLable, lastNameTextBox);
         missMandatoryField(errorcityLable, cityTextBox);
         missMandatoryField(erroremailLable, emailTextBox);
+        boolean emailBool=true;
+        boolean birthdayBool=true;
+
+        if(!isValidEmail(emailTextBox.getText()))
+        {
+            erroremailLable.setVisible(true);
+            erroremailLable.setText("Invalid email");
+            emailBool=false;
+        }
+
         if(birthdayDatePicker.getValue()==null)
         {
             errorbirthdayLable.setText("Mandatory field miss");
             errorbirthdayLable.setVisible(true);
+            birthdayBool=false;
         }
         else {
             LocalDate ld = birthdayDatePicker.getValue();
             if (LocalDate.from(ld).until(LocalDate.now(), ChronoUnit.YEARS) < 18) {
                 errorbirthdayLable.setText("The user must be over the age of 18");
                 errorbirthdayLable.setVisible(true);
+                birthdayBool=false;
             }
 
+        }
+
+        if(     !missMandatoryField(errorusernameLable, usernameTextBox) &&
+                !missMandatoryField(errorpasswordLable, passwordTextBox)&&
+                !missMandatoryField(errorfirstnameLable, firstNameTextBox)&&
+                !missMandatoryField(errorlastnameLable, lastNameTextBox)&&
+                !missMandatoryField(errorcityLable, cityTextBox)&&
+                !missMandatoryField(erroremailLable, emailTextBox)&&
+                emailBool && birthdayBool)
+        {
+            mc.createUser(usernameTextBox.getText(),passwordTextBox.getText(),birthdayDatePicker.getValue().toString(),firstNameTextBox.getText(),lastNameTextBox.getText(),cityTextBox.getText(),emailTextBox.getText());
 
         }
         // missMandatoryField(errorpasswordLable);
@@ -115,12 +154,6 @@ public class MainView {
         //  errorbirthdayLable.setText("The user must be over the age of 18");
         //errorbirthdayLable.setVisible(true);
         // }
-
-
-
-
-
-
     }
 
 }
