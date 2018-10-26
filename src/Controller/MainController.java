@@ -10,7 +10,7 @@ public class MainController{
     }
 
     public boolean signIn(String user_name, String password){
-        return true;
+        return model.validateUserNameAndPassword(user_name,password);
     }
     public boolean createUser (String user_name, String password, String birth_day, String first_name, String last_name, String city, String email) {
         //System.out.println(user_name);

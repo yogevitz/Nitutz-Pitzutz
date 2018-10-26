@@ -17,6 +17,11 @@ import java.util.regex.Pattern;
 
 public class MainView {
     private MainController mc = new MainController();
+    private signInView signInView;
+    private searchUpdateDeleteView searchUpdateDeleteView;
+    private signUpView signUpView;
+    private Stage signUpStage= new Stage();
+    private Stage searchDeleteUpdate = new Stage();
 
     @FXML
     public javafx.scene.control.Button loginButton;
@@ -43,12 +48,12 @@ public class MainView {
     public void signUp() {
         try {
 
-            Stage primaryStage = new Stage();
+            //Stage primaryStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("SignUpView.fxml"));
-            primaryStage.setTitle("Vacation4U");
-            primaryStage.setScene(new Scene(root, 411, 350));
-            primaryStage.show();
+            signUpStage.setTitle("Vacation4U");
+            signUpStage.setScene(new Scene(root, 411, 350));
+            signUpStage.show();
         } catch (Exception e) {
         }
     }
@@ -56,7 +61,7 @@ public class MainView {
 
     public void showAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("itay");
+        alert.setContentText("wrong user name or password. please try again");
         alert.show();
     }
 
@@ -88,8 +93,6 @@ public class MainView {
     }
 
     public void filledSignUp() {
-
-
         clearErrorLable(errorusernameLable);
         clearErrorLable(errorpasswordLable);
         clearErrorLable(errorfirstnameLable);
@@ -137,9 +140,22 @@ public class MainView {
                 !missMandatoryField(erroremailLable, emailTextBox)&&
                 emailBool && birthdayBool)
         {
-            mc.createUser(usernameTextBox.getText(),passwordTextBox.getText(),birthdayDatePicker.getValue().toString(),firstNameTextBox.getText(),lastNameTextBox.getText(),cityTextBox.getText(),emailTextBox.getText());
+            if(!mc.createUser(usernameTextBox.getText(),passwordTextBox.getText(),birthdayDatePicker.getValue().toString(),firstNameTextBox.getText(),lastNameTextBox.getText(),cityTextBox.getText(),emailTextBox.getText()))
+            {
+                errorusernameLable.setVisible(true);
+                errorusernameLable.setText("User name is already exist");
+            }
+            else{
+
+                System.out.println(signUpStage.getTitle());
+
+
+            }
+
+
 
         }
+
         // missMandatoryField(errorpasswordLable);
         //missMandatoryField(errorfirstnameLable);
         //missMandatoryField(errorlastnameLable);
@@ -154,6 +170,26 @@ public class MainView {
         //  errorbirthdayLable.setText("The user must be over the age of 18");
         //errorbirthdayLable.setVisible(true);
         // }
+    }
+
+    public void signIn(){
+        System.out.println(mc.toString());
+        if (mc.signIn(usernameTextBox.getText(),passwordTextBox.getText())){
+            try {
+
+                //Stage primaryStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                Parent root = fxmlLoader.load(getClass().getResource("searchUpdateDeleteView.fxml"));
+                searchDeleteUpdate.setTitle("Vacation4U");
+                searchDeleteUpdate.setScene(new Scene(root, 411, 350));
+                searchDeleteUpdate.show();
+            } catch (Exception e) {
+            }
+        }
+        else{
+            showAlert();
+        }
+
     }
 
 }
