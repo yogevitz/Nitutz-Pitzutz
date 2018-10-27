@@ -1,39 +1,42 @@
 package View;
 
 import Controller.MainController;
-import Model.MainModel;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 public class Main extends Application {
 
-    MainView mv = new MainView();
-    MainModel mm;
-    MainController mc;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("MainViewForm.fxml"));
-        primaryStage.setTitle("Vacation4U");
-        primaryStage.setScene(new Scene(root, 382, 249));
+        /*
+
+        primaryStage.setScene(new Scene(root,382,249));
         primaryStage.show();
        // MainModel mm = new MainModel();
        // mc = new MainController(mm);
-       // mv = new MainView();
-       mm = new MainModel();
-       mc = mv.getMainController();
-       mc.setMainModel(mm);
-}
+       // mv = new SignUpView();
+        initialView = fxmlLoader.getController();
+        mainModel = new MainModel();
+        initialController = new AfterSignInController(initialView,mainModel) ;*/
+        //FXMLLoader fxmlLoader = new FXMLLoader();
+        //Parent root = fxmlLoader.load(getClass().getResource("MainViewForm.fxml"));
+        //Scene scene = new Scene(root);
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
+        //InitialView initialView = fxmlLoader.getController();
+        //initialController.signInPress();
+        MainController mainController = new MainController();
+    }
 
-
+    /*
     public static void createNewDatabase(String fileName) {
         // create new data base on the path /Users/galvaitzman/IdeaProjects/NitutzJavaFX/
         String url = "jdbc:sqlite:" + fileName;
@@ -126,23 +129,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
         launch(args);
-        //createNewDatabase("Vacation4U.db");
-       // createNewTable();
-
-        // insert three new rows
-
-      //  m.createUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "galvaitzman@gmail.com");
-        //m.updateUser("goni", "agj","bgfj", "cjgf", "dgfj","egfj", "gonilevinhaihhhmi@gmail.com");
-        //List <String> l = m.searchUser("gon");
-        /*for (int i = 0; i < l.size(); i++) {
-            System.out.println(l.get(i));
-        }
-        System.out.println("bla");
-        m.searchUser("goni");
-        */
-        System.out.println("mk");
-
     }
 }

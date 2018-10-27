@@ -3,24 +3,40 @@ package Controller;
 import Model.MainModel;
 
 public class MainController{
-    MainModel model = new MainModel();
 
-    public void setMainModel(MainModel model){
-        this.model = model;
+    Controller initialController = new InitialController();
+    Controller signUpController = new SignUpController();
+    Controller afterSignInController = new AfterSignInController();
+    Controller currentController = initialController;
+    Controller previousController = null;
+
+    public MainController (){
+        Controller.setMainController(this);
+        Controller.setMainModel(new MainModel());
+        currentController.start();
     }
 
-    public boolean signIn(String user_name, String password){
-        return model.validateUserNameAndPassword(user_name,password);
+    public void signInSuccessfuly(String user_name){
+        ((AfterSignInController)afterSignInController).setCurrentUser(user_name);
+        previousController = currentController;
+        currentController = afterSignInController;
+        currentController.start();
     }
-    public boolean createUser (String user_name, String password, String birth_day, String first_name, String last_name, String city, String email) {
-        //System.out.println(user_name);
-        //System.out.println(password);
-        //System.out.println(birth_day);
-        //System.out.println(first_name);
-        //System.out.println(last_name);
-        //System.out.println(city);
-        //System.out.println(email);
-        return model.createUser(user_name, password, birth_day, first_name, last_name, city, email);
+
+    public void signUp(){
+        signUpController.start();
+    }
+
+    public void update(){
+        System.out.println("update oved");
+    }
+
+    public void search(){
+        System.out.println("search oved");
+    }
+
+    public void delete(){
+        System.out.println("delete oved");
     }
 
 }
