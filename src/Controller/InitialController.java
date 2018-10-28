@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 
 import java.io.IOException;
 
@@ -24,12 +23,13 @@ public class InitialController extends Controller {
             Scene scene = new Scene (root);
             window.setScene(scene);
             window.show();
+            window.setTitle("Vacation4U");
             initialView = fxmlLoader.getController();
         }
         catch (IOException e){}
-        initialView.signInButton = (Button)root.lookup("#signInButton");
-        initialView.signUpButton = (Button)root.lookup("#signUpButton");
-        initialView.signInAsGuest = (Button)root.lookup("#signInAsGuest");
+        //initialView.signInButton = (Button)root.lookup("#signInButton");
+        //initialView.signUpButton = (Button)root.lookup("#signUpButton");
+        //initialView.signInAsGuest = (Button)root.lookup("#signInAsGuest");
         initialView.start(new ButtonSignInClickedHandler(),new ButtonSignUpClickedHandler(),new ButtonSignInAsGuestClickedHandler());
 
     }

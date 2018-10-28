@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +14,7 @@ public class SignUpController extends Controller{
     private SignUpView signUpView;
 
     public void start(){
+
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
@@ -23,12 +23,28 @@ public class SignUpController extends Controller{
             window = new Stage();
             window.setScene(scene);
             window.show();
+            window.setTitle("Sign Up");
             signUpView = fxmlLoader.getController();
+            signUpView.signUpButton.setText("Sign Up");
         }
         catch (IOException e){}
-        signUpView.signUpButton = (Button)root.lookup("#signUpButton");
+        //signUpView.signUpButton = (Button)root.lookup("#signUpButton");
         signUpView.start(new ButtonSignUpClickedHandler());
     }
+
+    /*
+    public void update(String userName){
+        start();
+        signUpView.signUpButton.setText("Update");
+        List<String> list = mainModel.searchUserByUserName(userName);
+        if (!list.isEmpty()){
+            signUpView.setTxtFields(list.get(0),list.get(1),list.get(2),list.get(3),list.get(4),list.get(5),list.get(6));
+        }
+        else{
+           signUpView.setTxtFields("","","","","","","");
+        }
+    }
+    */
 
     public class ButtonSignUpClickedHandler implements EventHandler {
         @Override
@@ -43,7 +59,7 @@ public class SignUpController extends Controller{
                 else{
                     window.close();
                     mainController.signInSuccessfuly(signUpView.usernameTextBox.getText());
-                    signUpView.showAlert("Sign up successfuly");
+                    signUpView.showAlert("Sign up successfully");
 
 
                 }

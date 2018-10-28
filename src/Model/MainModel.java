@@ -65,7 +65,7 @@ public class MainModel {
         }
     }
 
-
+    /*
     public List<String> searchUser (String user_name){
         if (!users_passwords_Dic.containsKey(user_name)){
             return new ArrayList<String>() {
@@ -74,11 +74,13 @@ public class MainModel {
         System.out.println("yes");
         return users_Dic.get(user_name).listOfUserDetails();
     }
+    */
 
 
-    public boolean updateUser(String user_name,String password, String birth_day, String first_name, String last_name, String city, String email) {
+    public boolean updateUser(String user_name_after,String user_name,String password, String birth_day, String first_name, String last_name, String city, String email) {
         String sql = "UPDATE Users SET Password = ? , "
                                     + "Birth_day = ? ,"
+                                    + "User_name = ? ,"
                                     + "First_name = ? ,"
                                     + "Last_name = ? ,"
                                     + "City = ? ,"
@@ -91,11 +93,12 @@ public class MainModel {
             // set the corresponding param
             pstmt.setString(1, password);
             pstmt.setString(2, birth_day);
-            pstmt.setString(3, first_name);
-            pstmt.setString(4, last_name);
-            pstmt.setString(5, city);
-            pstmt.setString(6, email);
-            pstmt.setString(7, user_name);
+            pstmt.setString(3, user_name_after);
+            pstmt.setString(4, first_name);
+            pstmt.setString(5, last_name);
+            pstmt.setString(6, city);
+            pstmt.setString(7, email);
+            pstmt.setString(8, user_name);
             // update
             pstmt.executeUpdate();
             return true;

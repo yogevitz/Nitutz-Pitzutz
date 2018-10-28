@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor1" prefHeight="350.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SignUpView">
+<AnchorPane id="anchor1" prefHeight="350.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateView">
     <children>
         <GridPane alignment="CENTER" layoutY="40.0" prefHeight="229.0" prefWidth="411.0">
                 <children>
@@ -71,7 +71,7 @@
             <RowConstraints />
          </rowConstraints>
         </GridPane>
-              <Button fx:id="signUpButton" defaultButton="true" layoutX="165.0" layoutY="290.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Sign up" />
+              <Button fx:id="updateButton" defaultButton="true" layoutX="165.0" layoutY="290.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Update" />
           <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="18.0" prefHeight="17.0" prefWidth="210.0" text="Vacation4U" textAlignment="CENTER">
               <font>
                   <Font size="21.0" />

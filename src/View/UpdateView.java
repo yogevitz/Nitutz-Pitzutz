@@ -1,17 +1,17 @@
 package View;
 
-
-import Controller.SignUpController;
+import Controller.UpdateController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
-public class SignUpView {
+public class UpdateView {
 
     @FXML
-    public Button signUpButton;
+    public Button updateButton;
     public TextField usernameTextBox;
     public PasswordField passwordTextBox;
     public DatePicker birthdayDatePicker;
@@ -67,7 +67,7 @@ public class SignUpView {
         alert.setContentText(alertMessage);
         alert.show();
     }
-    public boolean filledSignUp() {
+    public boolean filledUpdate() {
         mandatoryFieldsMissing.setVisible(false);
         clearErrorLable(errorusernameLable);
         clearErrorLable(errorpasswordLable);
@@ -122,24 +122,23 @@ public class SignUpView {
                     errorlastnameLable.getText().equals("*") ||
                     errorcityLable.getText().equals("*") ||
                     erroremailLable.getText().equals("*") )
-            mandatoryFieldsMissing.setVisible(true);
+                mandatoryFieldsMissing.setVisible(true);
             return false;
         }
 
     }
 
-    public void start(SignUpController.ButtonSignUpClickedHandler buttonSignUpClickedHandler){
-        signUpButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,buttonSignUpClickedHandler);
+    public void start(UpdateController.ButtonUpdateClickedHandler buttonUpdateClickedHandler){
+        updateButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED,buttonUpdateClickedHandler);
     }
 
     public void setTxtFields(String userName,String password, String birthday, String firstName, String lastName, String city, String email ){
         usernameTextBox.setText(userName);
         passwordTextBox.setText(password);
-        birthdayDatePicker.setPromptText(birthday);
+        birthdayDatePicker.setValue(LocalDate.parse(birthday));
         firstNameTextBox.setText(firstName);
         lastNameTextBox.setText(lastName);
         cityTextBox.setText(city);
         emailTextBox.setText(email);
     }
-
 }

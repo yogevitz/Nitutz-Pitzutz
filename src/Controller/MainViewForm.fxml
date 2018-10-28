@@ -34,7 +34,7 @@
         </rowConstraints>
          <children>
             <TextField fx:id="usernameTextBox" prefHeight="27.0" prefWidth="127.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <TextField fx:id="passwordTextBox" prefHeight="27.0" prefWidth="123.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <TextField fx:id="passwordTextBox" accessibleRole="PASSWORD_FIELD" prefHeight="27.0" prefWidth="123.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="210.0" text="Vacation4U" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">

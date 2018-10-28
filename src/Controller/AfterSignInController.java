@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 
 import java.io.IOException;
 
@@ -24,6 +23,7 @@ public class AfterSignInController extends Controller {
             Scene scene = new Scene (root);
             window.setScene(scene);
             window.show();
+            window.setTitle("Vacation4U");
             afterSignInView = fxmlLoader.getController();
             if (currentUser.equals(""))
             {
@@ -31,9 +31,9 @@ public class AfterSignInController extends Controller {
                 //afterSignInView.
             }
             else afterSignInView.userNameLable.setText(currentUser);
-            afterSignInView.updateMyUserButton = (Button)root.lookup("#updateMyUserButton");
-            afterSignInView.searchUserButton = (Button)root.lookup("#searchUserButton");
-            afterSignInView.deleteMyUserButton = (Button)root.lookup("#deleteMyUserButton");
+            //afterSignInView.updateMyUserButton = (Button)root.lookup("#updateMyUserButton");
+            //afterSignInView.searchUserButton = (Button)root.lookup("#searchUserButton");
+            //afterSignInView.deleteMyUserButton = (Button)root.lookup("#deleteMyUserButton");
             afterSignInView.start(new ButtonUpdateMyUserClickedHandler(),new ButtonSearchUserClickedHandler(),new ButtonDeleteClickedHandler());
         }
         catch(IOException e) {}
@@ -49,7 +49,7 @@ public class AfterSignInController extends Controller {
         @Override
         public void handle(Event event) {
             //window.close();
-            mainController.update();
+            mainController.update(currentUser);
         }
     }
 
@@ -67,5 +67,9 @@ public class AfterSignInController extends Controller {
             //window.close();
             mainController.delete();
         }
+    }
+
+    public String getCurrentUser(){
+        return currentUser;
     }
 }

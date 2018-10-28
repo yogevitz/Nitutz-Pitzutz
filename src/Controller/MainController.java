@@ -7,6 +7,8 @@ public class MainController{
     Controller initialController = new InitialController();
     Controller signUpController = new SignUpController();
     Controller afterSignInController = new AfterSignInController();
+    Controller searchController = new SearchController();
+    Controller updateController = new UpdateController();
     Controller currentController = initialController;
     Controller previousController = null;
 
@@ -27,12 +29,13 @@ public class MainController{
         signUpController.start();
     }
 
-    public void update(){
-        System.out.println("update oved");
+    public void update(String userName){
+        ((UpdateController)updateController).setCurrentUser(userName);
+        updateController.start();
     }
 
     public void search(){
-        System.out.println("search oved");
+        searchController.start();
     }
 
     public void delete(){
