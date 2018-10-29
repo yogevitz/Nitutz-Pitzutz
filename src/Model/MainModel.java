@@ -3,13 +3,9 @@ package Model;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainModel {
-    Map<String, String> users_passwords_Dic = new HashMap<String, String>();
-    Map<String, User> users_Dic = new HashMap<String, User>();
     public boolean createUser(String user_name, String password, String birth_day, String first_name, String last_name, String city, String email)
     {
         if(searchUserByUserName(user_name).isEmpty())
@@ -78,32 +74,34 @@ public class MainModel {
 
 
     public boolean updateUser(String user_name_after,String user_name,String password, String birth_day, String first_name, String last_name, String city, String email) {
-        String sql = "UPDATE Users SET Password = ? , "
-                                    + "Birth_day = ? ,"
-                                    + "User_name = ? ,"
-                                    + "First_name = ? ,"
-                                    + "Last_name = ? ,"
-                                    + "City = ? ,"
-                                    + "Email = ? "
-                                    + "WHERE User_name  = ?";
+        if (user_name.equals(user_name_after) || searchUserByUserName(user_name_after).isEmpty()){
+            String sql = "UPDATE Users SET Password = ? , "
+                    + "Birth_day = ? ,"
+                    + "User_name = ? ,"
+                    + "First_name = ? ,"
+                    + "Last_name = ? ,"
+                    + "City = ? ,"
+                    + "Email = ? "
+                    + "WHERE User_name  = ?";
 
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (Connection conn = this.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // set the corresponding param
-            pstmt.setString(1, password);
-            pstmt.setString(2, birth_day);
-            pstmt.setString(3, user_name_after);
-            pstmt.setString(4, first_name);
-            pstmt.setString(5, last_name);
-            pstmt.setString(6, city);
-            pstmt.setString(7, email);
-            pstmt.setString(8, user_name);
-            // update
-            pstmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+                // set the corresponding param
+                pstmt.setString(1, password);
+                pstmt.setString(2, birth_day);
+                pstmt.setString(3, user_name_after);
+                pstmt.setString(4, first_name);
+                pstmt.setString(5, last_name);
+                pstmt.setString(6, city);
+                pstmt.setString(7, email);
+                pstmt.setString(8, user_name);
+                // update
+                pstmt.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return false;
     }

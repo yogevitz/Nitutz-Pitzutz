@@ -3,40 +3,33 @@ package Controller;
 import View.AfterSignInView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
-import java.io.IOException;
 
 public class AfterSignInController extends Controller {
     private AfterSignInView afterSignInView;
     private String currentUser="";
 
+    public AfterSignInController(){
+        super("AfterSignIn2.fxml");
+        afterSignInView = fxmlLoader.getController();
+        afterSignInView.start(new ButtonUpdateMyUserClickedHandler(),new ButtonSearchUserClickedHandler(),new ButtonDeleteClickedHandler());
+
+    }
     @Override
     public void start() {
+        window.show();
+        window.setTitle("Vacation4U");
 
-        Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            root = fxmlLoader.load(getClass().getResource("AfterSignIn2.fxml").openStream());
-            Scene scene = new Scene (root);
-            window.setScene(scene);
-            window.show();
-            window.setTitle("Vacation4U");
-            afterSignInView = fxmlLoader.getController();
-            if (currentUser.equals(""))
-            {
-                afterSignInView.userNameLable.setText("Guest");
-                //afterSignInView.
-            }
-            else afterSignInView.userNameLable.setText(currentUser);
-            //afterSignInView.updateMyUserButton = (Button)root.lookup("#updateMyUserButton");
-            //afterSignInView.searchUserButton = (Button)root.lookup("#searchUserButton");
-            //afterSignInView.deleteMyUserButton = (Button)root.lookup("#deleteMyUserButton");
-            afterSignInView.start(new ButtonUpdateMyUserClickedHandler(),new ButtonSearchUserClickedHandler(),new ButtonDeleteClickedHandler());
+        if (currentUser.equals(""))
+        {
+            afterSignInView.deleteMyUserButton.setVisible(false);
+            afterSignInView.updateMyUserButton.setVisible(false);
+            afterSignInView.userNameLable.setText("Guest");
         }
-        catch(IOException e) {}
+        else afterSignInView.userNameLable.setText(currentUser);
+        //afterSignInView.updateMyUserButton = (Button)root.lookup("#updateMyUserButton");
+        //afterSignInView.searchUserButton = (Button)root.lookup("#searchUserButton");
+        //afterSignInView.deleteMyUserButton = (Button)root.lookup("#deleteMyUserButton");
+
 
 
     }
@@ -49,7 +42,7 @@ public class AfterSignInController extends Controller {
         @Override
         public void handle(Event event) {
             //window.close();
-            mainController.update(currentUser);
+            mainController.update(afterSignInView.userNameLable.getText());
         }
     }
 
@@ -65,7 +58,10 @@ public class AfterSignInController extends Controller {
         @Override
         public void handle(Event event) {
             //window.close();
-            mainController.delete();
+            mainModel.delete(currentUser);
+            window.close();
+            mainController.activeInitialController();
+            afterSignInView.showAlert("The user has been deleted");
         }
     }
 

@@ -3,34 +3,25 @@ package Controller;
 import View.InitialView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
-import java.io.IOException;
 
 public class InitialController extends Controller {
     private InitialView initialView;
 
+    public InitialController(){
+        super("MainViewForm.fxml");
+        initialView = fxmlLoader.getController();
+        initialView.start(new ButtonSignInClickedHandler(),new ButtonSignUpClickedHandler(),new ButtonSignInAsGuestClickedHandler());
+
+    }
 
 
     public void start(){
 
-        Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            root = fxmlLoader.load(getClass().getResource("MainViewForm.fxml").openStream());
-            Scene scene = new Scene (root);
-            window.setScene(scene);
-            window.show();
-            window.setTitle("Vacation4U");
-            initialView = fxmlLoader.getController();
-        }
-        catch (IOException e){}
+        window.show();
+        window.setTitle("Vacation4U");
         //initialView.signInButton = (Button)root.lookup("#signInButton");
         //initialView.signUpButton = (Button)root.lookup("#signUpButton");
         //initialView.signInAsGuest = (Button)root.lookup("#signInAsGuest");
-        initialView.start(new ButtonSignInClickedHandler(),new ButtonSignUpClickedHandler(),new ButtonSignInAsGuestClickedHandler());
 
     }
 
@@ -45,8 +36,11 @@ public class InitialController extends Controller {
             }
             else
             {
-                window.close();
                 mainController.signInSuccessfuly(initialView.usernameTextBox.getText());
+                initialView.usernameTextBox.setText("");
+                initialView.passwordTextBox.setText("");
+                window.close();
+
             }
         }
     }

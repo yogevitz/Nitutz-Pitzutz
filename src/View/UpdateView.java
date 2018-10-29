@@ -13,7 +13,7 @@ public class UpdateView {
     @FXML
     public Button updateButton;
     public TextField usernameTextBox;
-    public PasswordField passwordTextBox;
+    public TextField passwordTextBox;
     public DatePicker birthdayDatePicker;
     public TextField firstNameTextBox;
     public TextField lastNameTextBox;

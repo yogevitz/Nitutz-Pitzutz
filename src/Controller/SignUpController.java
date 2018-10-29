@@ -3,33 +3,27 @@ package Controller;
 import View.SignUpView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.stage.WindowEvent;
 
 public class SignUpController extends Controller{
     private SignUpView signUpView;
 
-    public void start(){
-
-        Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            root = fxmlLoader.load(getClass().getResource("SignUpView.fxml").openStream());
-            Scene scene = new Scene (root);
-            window = new Stage();
-            window.setScene(scene);
-            window.show();
-            window.setTitle("Sign Up");
-            signUpView = fxmlLoader.getController();
-            signUpView.signUpButton.setText("Sign Up");
-        }
-        catch (IOException e){}
-        //signUpView.signUpButton = (Button)root.lookup("#signUpButton");
+    public SignUpController(){
+        super("SignUpView.fxml");
+        signUpView = fxmlLoader.getController();
         signUpView.start(new ButtonSignUpClickedHandler());
+        window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                mainController.activeInitialController();
+            }
+        });
+    }
+    public void start(){
+        window.show();
+        window.setTitle("Sign Up");
+        //signUpView.signUpButton = (Button)root.lookup("#signUpButton");
+
     }
 
     /*

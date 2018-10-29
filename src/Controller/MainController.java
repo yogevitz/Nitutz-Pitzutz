@@ -38,8 +38,9 @@ public class MainController{
         searchController.start();
     }
 
-    public void delete(){
-        System.out.println("delete oved");
+
+    public  void activeInitialController(){
+        initialController.start();
     }
 
 }

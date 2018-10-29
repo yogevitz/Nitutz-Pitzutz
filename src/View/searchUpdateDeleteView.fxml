@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor1" prefHeight="350.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SignUpView">
+<AnchorPane id="anchor1" prefHeight="350.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SignUpView">
     <children>
         <GridPane alignment="CENTER" layoutY="40.0" prefHeight="229.0" prefWidth="411.0">
                 <children>

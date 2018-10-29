@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor1" prefHeight="249.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InitialView">
+<AnchorPane id="anchor1" prefHeight="249.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InitialView">
    <children>
       <Button id="signInAsAGustButton" alignment="CENTER" contentDisplay="CENTER" layoutX="205.0" layoutY="218.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Sign in as a guest" textAlignment="RIGHT">
          <cursor>
