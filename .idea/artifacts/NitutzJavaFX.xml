@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="NitutzJavaFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/NitutzJavaFX</output-path>
+    <root id="root">
+      <element id="archive" name="NitutzJavaFX.jar">
+        <element id="module-output" name="NitutzJavaFX" />
+      </element>
+    </root>
+  </artifact>
+</component>
